@@ -1,0 +1,51 @@
+# -----------------------
+# Python cache files
+# -----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# -----------------------
+# Virtual environment folders
+# -----------------------
+.env/
+.venv/
+venv/
+ENV/
+env/
+
+# -----------------------
+# Jupyter Notebook checkpoints
+# -----------------------
+.ipynb_checkpoints/
+
+# -----------------------
+# Jupyter Notebook outputs (optional)
+# -----------------------
+# Uncomment if you want to ignore all outputs
+# *.nbconvert.ipynb
+# *.html
+# *.pdf
+
+# -----------------------
+# Database / sensitive files
+# -----------------------
+# Ignore local database dumps or MySQL password files
+*.sql
+*.db
+*.sqlite
+
+# -----------------------
+# IDE / Editor settings
+# -----------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# -----------------------
+# OS-specific files
+# -----------------------
+.DS_Store
+Thumbs.db
