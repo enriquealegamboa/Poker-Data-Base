@@ -23,7 +23,7 @@ while True:
         print("\nProgram interrupted by user. Exiting.")
         sys.exit()
 
-sql_file_path = 'SQL/playerStats.sql'
+sql_file_path = '../SQL/playerStats.sql'
 sql_script = ""
 with open(sql_file_path, 'r') as file:
     sql_script = file.read()
