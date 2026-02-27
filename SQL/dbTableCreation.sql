@@ -3,7 +3,7 @@
 -- ============================================
 
 CREATE TABLE PLAYER (
-    Account_Number INT PRIMARY KEY,
+    Account_Number INT AUTO_INCREMENT PRIMARY KEY,
     First VARCHAR(15) NOT NULL,
     Middle VARCHAR(15),
     Last VARCHAR(15) NOT NULL,

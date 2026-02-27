@@ -1,9 +1,15 @@
 import mysql.connector
+from mysql.connector import errorcode 
+import re
+import maskpass
+
+userName = input("Enter User Name: ")
+pw = maskpass.askpass(mask="*")
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="Quique",
-  password=""
+  user= userName,
+  password=pw
 )
 
 mycursor = mydb.cursor()
@@ -17,7 +23,7 @@ try:
     result = mycursor.execute(sql_script)
     print("SQL script executed successfully.")
 except mysql.connector.Error as e:
-    print(f"Error executing SQL script: {e}")
+    print(f"Error executing SQL script")
     mydb.rollback()
 finally:
     mycursor.close()

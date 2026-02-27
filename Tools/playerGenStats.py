@@ -43,7 +43,7 @@ while True:
             print(row)
         print("SQL script executed successfully.")
     except mysql.connector.Error as e:
-        print(f"Error executing SQL script: {e}")
+        print(f"Error executing SQL script")
         db.rollback()
     finally:
         print("done")

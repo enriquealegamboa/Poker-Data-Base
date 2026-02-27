@@ -3,44 +3,58 @@ from mysql.connector import errorcode
 import re
 import maskpass
 
-pw = maskpass.askpass(mask="")
+userName = input("Enter User Name: ")
+pw = maskpass.askpass(mask="*")
 
-db = mysql.connector.connect(
-  host="localhost",
-  user="Quique",
-  password= pw
-)
+try:
+    db = mysql.connector.connect(
+    host="localhost",
+    user=userName,
+    password= pw
+    )
+except mysql.connector.Error as err:
+    print("Error connecting to database.")
+    exit(1)
 
 cursor = db.cursor()
+
+try:
+    cursor.execute("USE Poker;")
+except mysql.connector.Error as err:
+    print("Database not found:", err)
+    cursor.close()
+    db.close()
+    exit(1)
 
 
 while True:
     try:
-        first, middle, last = input("PLayer Info: First Middle Last: ").split()
-        dob = input("Date of Birth - yyyy-mm-dd: ")
-        break
-    except ValueError:
-        print("Invalid input")
-cursor.execute("USE Poker;")
+        parts = input("Player Info (First Middle Last): ").split()
+        if len(parts) != 3:
+            raise ValueError("Must enter exactly 3 names (First Middle Last)")
+        first, middle, last = parts
 
-#New Player ID number
-query = "SELECT COUNT(*) FROM PLAYER"
-cursor.execute(query)
-result = cursor.fetchall()
-string_result = str(result[0])
-match = re.search(r'\d+', string_result)
-id_number = match.group(0)
+        dob_str = input("Date of Birth (yyyy-mm-dd): ")
+        dob = datetime.datetime.strptime(dob_str, "%Y-%m-%d").date()
+        break
+    except ValueError as e:
+        print(f"Invalid input")
+
+
+
 
 try:
-    query = "INSERT INTO PLAYER (Account_Number, First, Middle, Last, DOB) VALUES (%s, %s, %s, %s, %s)"
-    values = (id_number, first, middle, last, dob)
+    query = """
+    INSERT INTO PLAYER (First, Middle, Last, DOB)
+    VALUES (%s, %s, %s, %s)
+    """
+    values = (first, middle, last, dob)
     cursor.execute(query, values)
     db.commit()
-    print("New User Created\n")
+    print("New player created successfully!")
 except mysql.connector.Error as err:
-    print("Faild to insert new player.")
-    print(err)
+    print("Failed to insert new player:", err)
 finally:
-    db.close()
     cursor.close()
+    db.close()
 
