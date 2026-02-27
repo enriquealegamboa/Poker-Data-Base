@@ -32,7 +32,7 @@ env/
 # Database / sensitive files
 # -----------------------
 # Ignore local database dumps or MySQL password files
-*.sql
+#*.sql
 *.db
 *.sqlite
 
